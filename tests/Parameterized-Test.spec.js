@@ -96,7 +96,4 @@ test.describe('Asana Data-Driven Tests', () => {
 
     });
   });
-
-  browser.close(); //cleanup.
-
 });
