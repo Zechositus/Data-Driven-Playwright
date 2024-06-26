@@ -70,9 +70,6 @@ test.describe('Asana Data-Driven Tests', () => {
         // Verify the card is within the correct column
         test.slow(300000);
         const swimLane = await page.locator('//*[@id="asana_main_page"]/div[1]/div[1]/div[1]/div[2]/div[2]/div/div[1]/div[3]/div[1]/div/div/div/div/div',{hasText:`${testCases.column}`}). boundingBox();
-        //BoardBody-columnDraggableItemWrapper.SortableList-sortableItemContainer
-        ////*[@id="asana_main_page"]/div[1]/div[1]/div[1]/div[2]/div[2]/div/div[1]/div[3]/div[1]/div/div/div/div/div[2]
-        ////*[@id="asana_main_page"]/div[1]/div[1]/div[1]/div[2]/div[2]/div/div[1]/div[3]/div[1]/div/div/div/div/div[1]
         const targetElement = await page.getByText(`${testCases.card_title}`).boundingBox(); 
 
         const isHorizontalWithin = (
@@ -92,8 +89,6 @@ test.describe('Asana Data-Driven Tests', () => {
         expect(isHorizontalWithin).toBeTruthy();
         expect(isVerticalWithin).toBeTruthy();
         });
-      
-
     });
   });
 });
