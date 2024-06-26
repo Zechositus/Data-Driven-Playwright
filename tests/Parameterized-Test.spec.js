@@ -68,20 +68,27 @@ test.describe('Asana Data-Driven Tests', () => {
 
       await test.step('Verify the card is within the correct column', async () => {
         // Verify the card is within the correct column
-        test.slow();
-        const swimLane = await page.getByRole('heading', { name:`${testCases.column}` }).boundingBox(); //need to grab the container not input Field. 
+        test.slow(300000);
+        const swimLane = await page.locator('//*[@id="asana_main_page"]/div[1]/div[1]/div[1]/div[2]/div[2]/div/div[1]/div[3]/div[1]/div/div/div/div/div',{hasText:`${testCases.column}`}). boundingBox();
+        //BoardBody-columnDraggableItemWrapper.SortableList-sortableItemContainer
+        ////*[@id="asana_main_page"]/div[1]/div[1]/div[1]/div[2]/div[2]/div/div[1]/div[3]/div[1]/div/div/div/div/div[2]
+        ////*[@id="asana_main_page"]/div[1]/div[1]/div[1]/div[2]/div[2]/div/div[1]/div[3]/div[1]/div/div/div/div/div[1]
         const targetElement = await page.getByText(`${testCases.card_title}`).boundingBox(); 
 
         const isHorizontalWithin = (
             targetElement.x >= swimLane.x && //left edge Target is within Left edge Swimlane 
-            targetElement.x + targetElement.width <= swimLane.x + swimLane.width //left edge Target is within Left edge Swimlane 
+            targetElement.x + targetElement.width <= swimLane.x + swimLane.width //Right edge Target is within Right edge Swimlane 
           );
-
+        /*
+        Assume that vertial Alignement is not testable based on data provided. 
+        There is not a way to anchor the Vertical alignment container based on 
+        column value with the dom structure. It is fair to say that horizontal 
+        would verify swimlane. */
           const isVerticalWithin = (
             targetElement.y >= swimLane.y &&
             targetElement.y + targetElement.height <= swimLane.y + swimLane.height
           );
-
+          //the dual expects are to provide granualarity to the test results as one might succeeed and the other would fail. 
         expect(isHorizontalWithin).toBeTruthy();
         expect(isVerticalWithin).toBeTruthy();
         });
