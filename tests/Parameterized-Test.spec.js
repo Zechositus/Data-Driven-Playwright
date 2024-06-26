@@ -93,6 +93,10 @@ test.describe('Asana Data-Driven Tests', () => {
         expect(isVerticalWithin).toBeTruthy();
         });
       
+
     });
   });
+
+  browser.close(); //cleanup.
+
 });
